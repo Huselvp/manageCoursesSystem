@@ -6,7 +6,6 @@ import com.example.managecoursesystem.repository.CourseRepository;
 import com.example.managecoursesystem.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,9 +14,13 @@ import java.util.*;
 public class CourseService {
 
     private static final Logger log = LoggerFactory.getLogger(CourseService.class);
-    @Autowired
-    private CourseRepository courseRepository;
-    private StudentRepository studentRepository;
+
+    CourseService(CourseRepository courseRepository,StudentRepository studentRepository){
+        this.studentRepository=studentRepository;
+        this.courseRepository=courseRepository;
+    }
+    private final CourseRepository courseRepository;
+    private final  StudentRepository studentRepository;
 
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
