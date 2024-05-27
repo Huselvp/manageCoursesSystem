@@ -1,13 +1,11 @@
 package com.example.manageCourseSystem.controller;
 
 import com.example.manageCourseSystem.exceptions.ResourceNotFoundException;
-import com.example.manageCourseSystem.model.Course;
 import com.example.manageCourseSystem.model.Student;
 import com.example.manageCourseSystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController

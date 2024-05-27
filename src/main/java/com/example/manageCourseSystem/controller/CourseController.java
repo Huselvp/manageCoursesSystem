@@ -1,5 +1,4 @@
 package com.example.manageCourseSystem.controller;
-
 import com.example.manageCourseSystem.exceptions.ResourceNotFoundException;
 import com.example.manageCourseSystem.model.Course;
 import com.example.manageCourseSystem.service.CourseService;
