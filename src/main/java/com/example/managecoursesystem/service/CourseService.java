@@ -15,51 +15,83 @@ public class CourseService {
 
     private static final Logger log = LoggerFactory.getLogger(CourseService.class);
 
-    CourseService(CourseRepository courseRepository,StudentRepository studentRepository){
-        this.studentRepository=studentRepository;
-        this.courseRepository=courseRepository;
-    }
     private final CourseRepository courseRepository;
-    private final  StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
+
+    CourseService(CourseRepository courseRepository, StudentRepository studentRepository) {
+        this.courseRepository = courseRepository;
+        this.studentRepository = studentRepository;
+    }
 
     public List<Course> getAllCourses() {
-        return courseRepository.findAll();
+        log.info("Fetching all courses");
+        List<Course> courses = courseRepository.findAll();
+        log.info("Retrieved {} courses", courses.size());
+        return courses;
     }
 
     public Optional<Course> getCourseById(Long courseId) {
-        return courseRepository.findById(courseId);
+        log.info("Fetching course with ID: {}", courseId);
+        Optional<Course> course = courseRepository.findById(courseId);
+        if (course.isPresent()) {
+            log.info("Found course: {}", course.get());
+        } else {
+            log.warn("Course not found with ID: {}", courseId);
+        }
+        return course;
     }
 
     public Course createCourse(Course course) {
-        return courseRepository.save(course);
+        log.info("Creating new course: {}", course);
+        Course createdCourse = courseRepository.save(course);
+        log.info("Created course: {}", createdCourse);
+        return createdCourse;
     }
+
     public Course updateCourse(Long courseId, Course courseDetails) {
-        Course course = courseRepository.findById(courseId).orElseThrow(() -> new ResourceNotFoundException("Course not found for this id :: " + courseId));
+        log.info("Updating course with ID: {}", courseId);
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> {
+                    log.error("Course not found for this id :: {}", courseId);
+                    return new ResourceNotFoundException("Course not found for this id :: " + courseId);
+                });
 
         course.setCourseName(courseDetails.getCourseName());
         course.setDepartment(courseDetails.getDepartment());
         course.setCredits(courseDetails.getCredits());
-        return courseRepository.save(course);
+
+        Course updatedCourse = courseRepository.save(course);
+        log.info("Updated course: {}", updatedCourse);
+        return updatedCourse;
     }
 
     public void deleteCourse(Long courseId) {
-        Course course = courseRepository.findById(courseId).orElseThrow(() -> new ResourceNotFoundException("Course not found for this id :: " + courseId));
+        log.info("Deleting course with ID: {}", courseId);
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> {
+                    log.error("Course not found for this id :: {}", courseId);
+                    return new ResourceNotFoundException("Course not found for this id :: " + courseId);
+                });
         courseRepository.delete(course);
+        log.info("Deleted course with ID: {}", courseId);
     }
 
     public Map<Course, List<Student>> getStudentsByCourse() {
+        log.info("Fetching students by course");
         List<Course> courses = courseRepository.findAll();
         Map<Course, List<Student>> courseStudentMap = new HashMap<>();
 
         for (Course course : courses) {
             List<Student> students = studentRepository.findByCoursesContaining(course);
             courseStudentMap.put(course, students);
+            log.info("Course: {}, Students enrolled: {}", course, students.size());
         }
 
         return courseStudentMap;
     }
 
     public Map<String, List<Student>> getStudentsByAgeGroup() {
+        log.info("Grouping students by age group");
         List<Student> students = studentRepository.findAll();
         Map<String, List<Student>> ageGroupMap = new HashMap<>();
 
@@ -84,16 +116,22 @@ public class CourseService {
             }
         }
 
+        log.info("Grouped students into age groups");
         return ageGroupMap;
     }
 
     public void enrollStudentsInCourse(List<Student> students, Long courseId) {
+        log.info("Enrolling students in course with ID: {}", courseId);
         Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new ResourceNotFoundException("Course not found with id " + courseId));
+                .orElseThrow(() -> {
+                    log.error("Course not found with id {}", courseId);
+                    return new ResourceNotFoundException("Course not found with id " + courseId);
+                });
 
         for (Student student : students) {
             student.getCourseList().add(course);
             studentRepository.save(student);
+            log.info("Enrolled student: {} in course: {}", student, course);
         }
     }
 }

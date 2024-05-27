@@ -9,41 +9,51 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 @Service
 public class StudentService {
-    private static final Logger log = LoggerFactory.getLogger(StudentService.class);
+    private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
 
+    @Autowired
+    private StudentRepository studentRepository;
 
-    StudentService(StudentRepository studentRepository){this.studentRepository=studentRepository;}
-    private final StudentRepository studentRepository;
     public List<Student> getAllStudents() {
+        logger.info("Fetching all students");
         return studentRepository.findAll();
-
     }
 
     public Optional<Student> getStudentById(Long studentId) {
+        logger.info("Fetching student with ID: {}", studentId);
         return studentRepository.findById(studentId);
     }
 
     public Student createStudent(Student student) {
+        logger.info("Creating new student: {}", student);
         return studentRepository.save(student);
     }
 
-    public Student updateStudent(Long studentId,Student studentDetails) {
-       Student student= studentRepository.findById(studentId).orElseThrow(() -> new ResourceNotFoundException("Course not found for this id :: " +studentId));
+    public Student updateStudent(Long studentId, Student studentDetails) {
+        logger.info("Updating student with ID: {}", studentId);
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + studentId));
 
         student.setFirstName(studentDetails.getFirstName());
-      student.setLastName(studentDetails.getLastName());
-       student.setAge(studentDetails.getAge());
-       student.setEmail(studentDetails.getEmail());
-       student.setDateOfBirth(studentDetails.getDateOfBirth());
+        student.setLastName(studentDetails.getLastName());
+        student.setAge(studentDetails.getAge());
+        student.setEmail(studentDetails.getEmail());
+        student.setDateOfBirth(studentDetails.getDateOfBirth());
+
+        logger.info("Updated student details: {}", student);
         return studentRepository.save(student);
     }
 
     public void deleteStudent(Long studentId) {
-      Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResourceNotFoundException("Course not found for this id :: " + studentId));
+        logger.info("Deleting student with ID: {}", studentId);
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + studentId));
         studentRepository.delete(student);
+        logger.info("Deleted student with ID: {}", studentId);
     }
-
 }
