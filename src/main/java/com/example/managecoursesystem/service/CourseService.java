@@ -129,7 +129,7 @@ public class CourseService {
                 });
 
         for (Student student : students) {
-            student.getCourseList().add(course);
+            student.getCourses().add(course);
             studentRepository.save(student);
             log.info("Enrolled student: {} in course: {}", student, course);
         }

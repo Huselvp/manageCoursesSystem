@@ -12,23 +12,16 @@ import java.util.List;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long StudentId;
+    private Long studentId;
      private String firstName;
      private String  lastName;
      private int   age;
      private Date dateOfBirth;
     @Column(name = "email", unique = true)
     private String   email;
-    @OneToMany
-    List<Course> courseList;
+    @OneToMany(mappedBy = "student")
+    private List<Course> courses;
 
-    public Long getStudentId() {
-        return StudentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        StudentId = studentId;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -69,11 +62,20 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }
-    public List<Course> getCourseList() {
-        return courseList;
+
+    public List<Course> getCourses() {
+        return courses;
     }
 
-    public void setCourseList(List<Course> courseList) {
-        this.courseList = courseList;
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 }
