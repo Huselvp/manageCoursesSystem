@@ -1,4 +1,4 @@
-package com.example.manageCourseSystem.model;
+package com.example.managecoursesystem.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -68,5 +68,12 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.manageCourseSystem.model;
+package com.example.managecoursesystem.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

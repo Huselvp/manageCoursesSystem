@@ -1,8 +1,8 @@
-package com.example.manageCourseSystem.service;
+package com.example.managecoursesystem.service;
 
-import com.example.manageCourseSystem.exceptions.ResourceNotFoundException;
-import com.example.manageCourseSystem.model.Student;
-import com.example.manageCourseSystem.repository.StudentRepository;
+import com.example.managecoursesystem.exception.ResourceNotFoundException;
+import com.example.managecoursesystem.model.Student;
+import com.example.managecoursesystem.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

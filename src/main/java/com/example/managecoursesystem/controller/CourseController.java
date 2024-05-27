@@ -1,7 +1,7 @@
-package com.example.manageCourseSystem.controller;
-import com.example.manageCourseSystem.exceptions.ResourceNotFoundException;
-import com.example.manageCourseSystem.model.Course;
-import com.example.manageCourseSystem.service.CourseService;
+package com.example.managecoursesystem.controller;
+import com.example.managecoursesystem.exception.ResourceNotFoundException;
+import com.example.managecoursesystem.model.Course;
+import com.example.managecoursesystem.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
