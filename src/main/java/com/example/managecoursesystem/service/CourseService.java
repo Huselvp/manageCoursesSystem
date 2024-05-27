@@ -4,6 +4,8 @@ import com.example.managecoursesystem.model.Course;
 import com.example.managecoursesystem.model.Student;
 import com.example.managecoursesystem.repository.CourseRepository;
 import com.example.managecoursesystem.repository.StudentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.*;
 @Service
 public class CourseService {
 
+    private static final Logger log = LoggerFactory.getLogger(CourseService.class);
     @Autowired
     private CourseRepository courseRepository;
     private StudentRepository studentRepository;

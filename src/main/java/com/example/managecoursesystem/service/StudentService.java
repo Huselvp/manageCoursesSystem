@@ -3,6 +3,8 @@ package com.example.managecoursesystem.service;
 import com.example.managecoursesystem.exception.ResourceNotFoundException;
 import com.example.managecoursesystem.model.Student;
 import com.example.managecoursesystem.repository.StudentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +13,12 @@ import java.util.Optional;
 
 @Service
 public class StudentService {
+    private static final Logger log = LoggerFactory.getLogger(StudentService.class);
     @Autowired
     StudentRepository studentRepository;
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
+
     }
 
     public Optional<Student> getStudentById(Long studentId) {
