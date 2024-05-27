@@ -12,7 +12,7 @@ public class Course {
     private Long courseId;
     private String    courseName;
     private String   department;
-    private String  credits;
+    private  int credits;
 
     public Long getCourseId() {
         return courseId;
@@ -38,11 +38,12 @@ public class Course {
         this.department = department;
     }
 
-    public String getCredits() {
+
+    public int getCredits() {
         return credits;
     }
 
-    public void setCredits(String credits) {
+    public void setCredits(int credits) {
         this.credits = credits;
     }
 }
