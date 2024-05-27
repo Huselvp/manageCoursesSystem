@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ManageCourseSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ManageCourseSystemApplication.class, args);
+		System.out.println("nothing");
 	}
 
 }
