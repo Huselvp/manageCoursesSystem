@@ -1,7 +1,6 @@
 package com.example.manageCourseSystem.service;
 
 import com.example.manageCourseSystem.exceptions.ResourceNotFoundException;
-import com.example.manageCourseSystem.model.Course;
 import com.example.manageCourseSystem.model.Student;
 import com.example.manageCourseSystem.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;

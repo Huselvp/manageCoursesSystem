@@ -39,5 +39,6 @@ public class CourseService {
         Course course = courseRepository.findById(courseId).orElseThrow(() -> new ResourceNotFoundException("Course not found for this id :: " + courseId));
         courseRepository.delete(course);
     }
+
 }
 
