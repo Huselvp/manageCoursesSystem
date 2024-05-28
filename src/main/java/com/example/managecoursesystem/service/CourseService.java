@@ -48,7 +48,7 @@ public class CourseService {
         return createdCourse;
     }
 
-    public Course updateCourse(Long courseId, Course courseDetails) {
+    public Course updateCourse(Long courseId,Course courseDetails) {
         log.info("Updating course with ID: {}", courseId);
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> {

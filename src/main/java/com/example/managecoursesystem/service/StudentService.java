@@ -9,15 +9,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-
 
 @Service
 public class StudentService {
     private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
 
-    @Autowired
-    private StudentRepository studentRepository;
+   StudentService(StudentRepository studentRepository){
+    this.studentRepository = studentRepository;
+}
+
+    private final StudentRepository studentRepository;
 
     public List<Student> getAllStudents() {
         logger.info("Fetching all students");
