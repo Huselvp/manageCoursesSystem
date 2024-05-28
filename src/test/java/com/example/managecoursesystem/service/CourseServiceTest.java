@@ -184,10 +184,8 @@ import org.mockito.MockitoAnnotations;
          when(studentRepository.findAll()).thenReturn(students);
 
          Map<String, List<Student>> ageGroupMap = courseService.getStudentsByAgeGroup();
-
          assertEquals(1, ageGroupMap.get("18-22").size());
          assertEquals("Narjis", ageGroupMap.get("18-22").get(0).getFirstName());
-
          verify(studentRepository, times(1)).findAll();
      }
 
