@@ -94,13 +94,11 @@ public class CourseService {
         log.info("Grouping students by age group");
         List<Student> students = studentRepository.findAll();
         Map<String, List<Student>> ageGroupMap = new HashMap<>();
-
         ageGroupMap.put("18-22", new ArrayList<>());
         ageGroupMap.put("23-27", new ArrayList<>());
         ageGroupMap.put("28-32", new ArrayList<>());
         ageGroupMap.put("33-37", new ArrayList<>());
         ageGroupMap.put("38+", new ArrayList<>());
-
         for (Student student : students) {
             int age = student.getAge();
             if (age >= 18 && age <= 22) {

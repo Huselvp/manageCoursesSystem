@@ -3,6 +3,7 @@ package com.example.managecoursesystem.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,11 +17,25 @@ public class Student {
      private String firstName;
      private String  lastName;
      private int   age;
+    @Temporal(TemporalType.DATE)
      private Date dateOfBirth;
     @Column(name = "email", unique = true)
     private String   email;
     @OneToMany(mappedBy = "student")
     private List<Course> courses;
+
+    public Student() {}
+
+    public Student(Long studentId, String firstName, String lastName, int age, Date dateOfBirth, String email) {
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.courses = new ArrayList<>();
+    }
+
 
 
     public String getFirstName() {
