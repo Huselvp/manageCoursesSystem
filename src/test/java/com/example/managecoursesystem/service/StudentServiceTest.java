@@ -23,35 +23,32 @@ class StudentServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-    }
 
+    }
     @Test
     void testGetAllStudents() {
         List<Student> mockStudents = new ArrayList<>();
-        mockStudents.add(new Student(1L, "John", "Doe", 25, new Date(), "john.doe@example.com"));
-        mockStudents.add(new Student(2L, "Jane", "Smith", 30, new Date(), "jane.smith@example.com"));
-
+        mockStudents = new ArrayList<>();
+        mockStudents.add(new Student(1L, "Sanae", "Sss", 25, new Date(), "sanae.sss@example.com"));
+        mockStudents.add(new Student(2L, "Jinan", "Jjj", 30, new Date(), "Jinane.Jjj@example.com"));
         when(studentRepository.findAll()).thenReturn(mockStudents);
-
         List<Student> students = studentService.getAllStudents();
 
         assertEquals(2, students.size());
-        assertEquals("John", students.get(0).getFirstName());
-        assertEquals("Jane", students.get(1).getFirstName());
-
+        assertEquals("Sanae", students.get(0).getFirstName());
+        assertEquals("Jinan", students.get(1).getFirstName());
         verify(studentRepository, times(1)).findAll();
     }
 
     @Test
     void testGetStudentById() {
-        Student mockStudent = new Student(1L, "John", "Doe", 25, new Date(), "john.doe@example.com");
-
+        Student mockStudent = new Student(1L, "Houda", "Msb", 25, new Date(), "Houda.Msb@example.com");
         when(studentRepository.findById(1L)).thenReturn(Optional.of(mockStudent));
 
         Optional<Student> student = studentService.getStudentById(1L);
 
         assertTrue(student.isPresent());
-        assertEquals("John", student.get().getFirstName());
+        assertEquals("Houda", student.get().getFirstName());
 
         verify(studentRepository, times(1)).findById(1L);
     }
@@ -59,30 +56,27 @@ class StudentServiceTest {
 
     @Test
     void testCreateStudent() {
-        Student newStudent = new Student(null, "Alice", "Johnson", 28, new Date(), "alice.johnson@example.com");
-        Student savedStudent = new Student(1L, "Alice", "Johnson", 28, new Date(), "alice.johnson@example.com");
-
+        Student newStudent = new Student(null, "Houda", "Msb", 28, new Date(), "Houda.Msb@example.com");
+        Student savedStudent = new Student(1L, "Houda", "Msb", 28, new Date(), "Houda.Msb@example.com");
         when(studentRepository.save(newStudent)).thenReturn(savedStudent);
-
         Student createdStudent = studentService.createStudent(newStudent);
-
         assertNotNull(createdStudent.getStudentId());
-        assertEquals("Alice", createdStudent.getFirstName());
+        assertEquals("Houda", createdStudent.getFirstName());
 
         verify(studentRepository, times(1)).save(newStudent);
     }
 
     @Test
     void testUpdateStudent() {
-        Student existingStudent = new Student(1L, "John", "Doe", 25, new Date(), "john.doe@example.com");
-        Student updatedDetails = new Student(null, "Jane", "Smith", 30, new Date(), "jane.smith@example.com");
+        Student existingStudent = new Student(1L, "Houda", "Msb", 25, new Date(), "Houda.msb@example.com");
+        Student updatedDetails = new Student(null, "Jinan", "Jjj", 30, new Date(), "Jinan.Jjj@example.com");
 
         when(studentRepository.findById(1L)).thenReturn(Optional.of(existingStudent));
         when(studentRepository.save(existingStudent)).thenReturn(updatedDetails);
 
         Student updatedStudent = studentService.updateStudent(1L, updatedDetails);
 
-        assertEquals("Jane", updatedStudent.getFirstName());
+        assertEquals("Jinan", updatedStudent.getFirstName());
 
         verify(studentRepository, times(1)).findById(1L);
         verify(studentRepository, times(1)).save(existingStudent);
@@ -90,7 +84,7 @@ class StudentServiceTest {
 
     @Test
     void testUpdateStudent_NotFound() {
-        Student updatedDetails = new Student(null, "Jane", "Smith", 30, new Date(), "jane.smith@example.com");
+        Student updatedDetails = new Student(null, "Jinan", "Jjj", 30, new Date(), "Jinan.Jjj@example.com");
 
         when(studentRepository.findById(1L)).thenReturn(Optional.empty());
 
@@ -102,7 +96,7 @@ class StudentServiceTest {
 
     @Test
     void testDeleteStudent() {
-        Student existingStudent = new Student(1L, "John", "Doe", 25, new Date(), "john.doe@example.com");
+        Student existingStudent = new Student(1L, "Houda", "Msb", 25, new Date(), "john.doe@example.com");
 
         when(studentRepository.findById(1L)).thenReturn(Optional.of(existingStudent));
 
