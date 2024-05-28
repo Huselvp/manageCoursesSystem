@@ -7,7 +7,6 @@ import com.example.managecoursesystem.service.CourseService;
 import com.example.managecoursesystem.service.StudentService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,7 +17,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/students")
 public class StudentController {
-    @Autowired
+    StudentController(StudentService studentService,  CourseService courseService){
+        this.studentService = studentService;
+        this.courseService = courseService;
+    }
     StudentService studentService;
     CourseService courseService;
     @GetMapping

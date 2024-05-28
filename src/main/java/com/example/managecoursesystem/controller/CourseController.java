@@ -2,7 +2,6 @@ package com.example.managecoursesystem.controller;
 import com.example.managecoursesystem.exception.ResourceNotFoundException;
 import com.example.managecoursesystem.model.Course;
 import com.example.managecoursesystem.service.CourseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -10,10 +9,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/courses")
 public class CourseController {
+    private final CourseService courseService;
 
-    @Autowired
-    private CourseService courseService;
-
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
     @GetMapping
     public List<Course> getAllCourses() {
         return courseService.getAllCourses();
